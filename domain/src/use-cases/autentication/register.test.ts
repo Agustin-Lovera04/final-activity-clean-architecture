@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, test, expect } from 'vitest'
 
 describe('Register', async () => {
     test('Receives user data and should create and return the same', async()=>{
