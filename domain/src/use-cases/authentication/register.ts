@@ -7,11 +7,14 @@ interface registerUserData{
     payload: IUser
 }
 
-export function registerUser(data: registerUserData){
+export async function registerUser({dependencies, payload}: registerUserData){
 
-    const {id, email, password, name, role} = data.payload 
+    const {email} = payload 
 
-    let existUserInDB = data.dependencies.authenticationService.findUserByEmail(email)
+    let existUserInDB = await dependencies.authenticationService.findUserByEmail(email)
+    if(existUserInDB?.id){
+        return 'User already exists'
+    }
 
-   return 'Usuario registrado con éxito'
+   return 'User successfully registered'
 }
