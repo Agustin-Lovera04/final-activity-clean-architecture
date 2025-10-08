@@ -16,5 +16,12 @@ export async function registerUser({dependencies, payload}: registerUserData){
         return 'User already exists'
     }
 
+    const createUser = await dependencies.authenticationService.createUser(payload)
+
+    if(!createUser){
+        return 'Error registering user'
+    }
+
+
    return 'User successfully registered'
 }

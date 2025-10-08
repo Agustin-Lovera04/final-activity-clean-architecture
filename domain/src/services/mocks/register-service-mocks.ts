@@ -25,5 +25,9 @@ export const authenticationService = {
     findUserByEmail: async (email: string): Promise<IUser | undefined> => {
         const user = users.find(u => u.email === email)
         return user
-    } 
+    },
+    createUser: async (dataUser: IUser): Promise<IUser | undefined> => {
+        users.push(dataUser)
+        return dataUser
+    }
 }

@@ -5,18 +5,17 @@ import { registerUser } from './register'
 describe('Register', async () => {
 
     test('Receives user data and should create and return the same', async()=>{
-        const result = registerUser({
+        const result = await registerUser({
             dependencies: { authenticationService },
             payload: {
                 id: 'idUnique',
-                email: 'test@gmail.com',
+                email: 'testNO@gmail.com',
                 password: 'test',
                 name: 'Agustin',
                 role: 'CLIENT'
             }
         })
-
-        expect(result).toStrictEqual('Usuario registrado con éxito')
+        expect(result).toStrictEqual('User successfully registered')
     })
 
     test('Receives incomplete user data and should return error', async()=> {})
