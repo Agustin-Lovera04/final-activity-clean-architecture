@@ -34,4 +34,18 @@ describe('Register', () => {
         expect(result).toStrictEqual('User already exists')
     })
 
+        test('Receives user data with invalid email and should return an error', async()=> {
+        const result = await registerUser({
+            dependencies: { authenticationService },
+            payload:  {
+                id: 'idUnique',
+                email: 'test',
+                password: 'test',
+                name: 'Agustin',
+                role: 'CLIENT'
+            }
+        })
+
+        expect(result).toStrictEqual('Invalid email')
+    })
 })
