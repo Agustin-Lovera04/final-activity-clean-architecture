@@ -3,15 +3,15 @@ import { IUser } from "../../entities"
 const users: IUser[] = [
     {
         id: "user1",
-        email: 'test@gmail.com',
-        password: 'test',
+        email: 'agustin@gmail.com',
+        password: 'Agustin',
         name: 'Agustin',
         role: 'CLIENT'
     },
     {
         id: "user2",
-        email: 'test2@gmail.com',
-        password: 'test2',
+        email: 'Juan@gmail.com',
+        password: 'Juan',
         name: 'Juan',
         role: 'CLIENT'
     }
