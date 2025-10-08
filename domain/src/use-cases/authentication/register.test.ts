@@ -1,7 +1,6 @@
 import { describe, test, expect } from 'vitest'
 import { authenticationService } from '../../services/mocks/register-service-mocks'
 import { registerUser } from './register'
-import { IUser } from '../../entities'
 
 describe('Register', () => {
 
