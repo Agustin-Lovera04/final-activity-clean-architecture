@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { authenticationService } from '../../services/mocks/register-service-mocks'
+import { authenticationService } from '../../services/mocks/authentication-service-mocks'
 import { registerUser } from './register'
 
 describe('Register', () => {

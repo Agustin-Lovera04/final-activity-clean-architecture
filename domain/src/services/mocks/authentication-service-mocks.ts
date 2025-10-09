@@ -35,5 +35,13 @@ export const authenticationService = {
             return false
         }
         return true
+    },
+    generateTokenUser: async(dataUser: Omit<IUser, 'password'>):Promise<string | undefined> => {
+
+        // Generacion de token
+
+        return 'token'
     }
+
+
 }

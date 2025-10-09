@@ -1,5 +1,5 @@
 import { IUser } from "../../entities";
-import { authenticationService } from "../../services/authentication/register-service";
+import { authenticationService } from "../../services/authentication/authentication-service";
 
 type loginFields = 'email' | 'password';
 
@@ -24,5 +24,11 @@ export async function loginUser({dependencies, payload}: loginUserData){
         return 'Invalid credentials'
     }
 
-    return payload
+    const token = await dependencies.authenticationService.generateTokenUser(existUserInDB)
+
+    if(token == undefined){
+        return 'Internal error in login process'
+    }
+
+    return token
 }

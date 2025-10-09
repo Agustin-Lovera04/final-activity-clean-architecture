@@ -1,5 +1,5 @@
 import { IUser } from "../../entities"
-import { authenticationService } from "../../services/authentication/register-service"
+import { authenticationService } from "../../services/authentication/authentication-service"
 
 
 interface registerUserData{
