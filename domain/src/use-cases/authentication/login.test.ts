@@ -9,11 +9,14 @@ describe('Login User', () => {
         const result = await loginUser({
             dependencies: {authenticationService},
             payload: {
-                email: 'test@gmail.com',
-                password: 'test'
+                email: 'agustin@gmail.com',
+                password: 'Agustin'
             }
         })
 
-        expect(result).toStrictEqual('')
+        expect(result).toStrictEqual({
+            email: 'agustin@gmail.com',
+            password: 'Agustin'
+        })
     })
 })

@@ -29,5 +29,11 @@ export const authenticationService = {
     createUser: async (dataUser: IUser): Promise<IUser | undefined> => {
         users.push(dataUser)
         return dataUser
+    },
+    validPassword:async (password: string, existUserInDB: IUser) : Promise<boolean> => {
+        if(password !== existUserInDB.password){
+            return false
+        }
+        return true
     }
 }
