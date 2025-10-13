@@ -1,9 +1,11 @@
 import { describe, test, expect } from 'vitest'
-import { authenticationService } from '../../services/mocks/authentication-service-mocks'
+import { AuthenticationServiceMock } from '../../services/mocks/authentication-service-mocks'
 import { loginUser } from './login'
 
 
 describe('Login User', () => {
+
+    const authenticationService = new AuthenticationServiceMock()
 
     test("Receive user data and compare it with existing users and should return a JWT set in cookies with the user information.", async()=>{
         const result = await loginUser({

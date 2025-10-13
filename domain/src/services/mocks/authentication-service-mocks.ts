@@ -1,8 +1,8 @@
 import { IUser } from "../../entities";
-import { Error } from "../../utils/types/error";
 import { authenticationService } from "../authentication/authentication-service";
+import { ServiceResult } from "../../utils/types/serviceResult";
 
-export class AuthenticationServiceMock implements authenticationService{
+export class AuthenticationServiceMock implements authenticationService {
     private users: IUser[] = [
         {
             id: "user1",
@@ -20,39 +20,48 @@ export class AuthenticationServiceMock implements authenticationService{
         }
     ];
 
-
-    async findAll(): Promise<IUser[] | Error>{return {error: ''}}
-
-    async findById(id:string):Promise<IUser | undefined>{return undefined}
-
-    async registerUser(dataUser: IUser): Promise<IUser | undefined> {
-        const user = this.users[0];
-        return user;
+    async findAll(): Promise<ServiceResult<IUser[]>> {
+        return { success: true, data: this.users };
     }
 
-    async findUserByEmail(email: string): Promise<IUser | undefined> {
+    async findById(id: string): Promise<ServiceResult<IUser>> {
+        return { success: true, data: undefined };
+    }
+
+    async findUserByEmail(email: string): Promise<ServiceResult<IUser>> {
         const user = this.users.find(u => u.email === email);
-        return user;
-    }
-
-    async create(dataUser: IUser): Promise<void | Error> {
-        this.users.push(dataUser);
-        return;
-    }
-
-    async validPassword(password: string, existUserInDB: IUser): Promise<boolean> {
-        if (password !== existUserInDB.password) {
-            return false;
+        if (!user) {
+            return { success: false, error: 'User not found' };
         }
-        return true;
+        return { success: true, data: user };
     }
 
-    async generateTokenUser(dataUser: Omit<IUser, 'password'>): Promise<string | undefined> {
-        // Generación de token (mock)
-        return 'token';
+
+    async create(dataUser: IUser): Promise<ServiceResult<IUser>> {
+        try {
+            this.users.push(dataUser);
+            return { success: true, data: dataUser };
+        } catch (error) {
+            return { success: false, error: "Internal error in register process." };
+        }
     }
 
-    async editOne (dataUser: Partial<IUser>): Promise<IUser | Error>{return {error: ''}}
+    async validPassword(password: string, existUserInDB: IUser): Promise<ServiceResult<IUser>> {
+        if (password !== existUserInDB.password) {
+            return { success: false, error: "Invalid password" };
+        }
+        return { success: true, data: existUserInDB };
+    }
 
-    async deleteOne (id: string): Promise<void | Error>{return}
+    async generateTokenUser(dataUser: Omit<IUser, "password">): Promise<ServiceResult<string>> {
+        return { success: true, data: undefined };
+    }
+
+    async editOne(dataUser: Partial<IUser>): Promise<ServiceResult<IUser>> {
+        return { success: true, data: undefined };
+    }
+
+    async deleteOne(id: string): Promise<ServiceResult<IUser>> {
+        return { success: true, data: undefined };
+    }
 }

@@ -17,14 +17,14 @@ export async function registerUser({dependencies, payload}: registerUserData){
 
 
     let existUserInDB = await dependencies.authenticationService.findUserByEmail(email)
-    if(existUserInDB?.id){
+    if(existUserInDB.success && existUserInDB.data){
         return 'User already exists'
     }
 
     const createUser = await dependencies.authenticationService.create(payload)
 
-    if(!createUser){
-        return 'Error registering user'
+    if(!createUser.success){
+        return createUser.error
     }
 
 
