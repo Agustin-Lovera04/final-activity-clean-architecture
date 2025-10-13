@@ -1,4 +1,4 @@
-import { Entity } from "../utils/entity"
+import { Entity } from "../utils/types/entity"
 
 export interface IProduct extends Entity{
     title: string

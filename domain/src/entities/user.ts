@@ -1,4 +1,4 @@
-import { Entity } from "../utils/entity"
+import { Entity } from "../utils/types/entity"
 
 export const UserRole = {
     ADMIN: 'ADMIN',
