@@ -1,8 +1,10 @@
+import { AuthenticationServiceMock } from './../../services/mocks/authentication-service-mocks';
 import { describe, test, expect } from 'vitest'
-import { authenticationService } from '../../services/mocks/authentication-service-mocks'
 import { registerUser } from './register'
 
 describe('Register', () => {
+
+    const authenticationService = new AuthenticationServiceMock()
 
     test('Receives user data and should create and return the same', async()=>{
         const result = await registerUser({
