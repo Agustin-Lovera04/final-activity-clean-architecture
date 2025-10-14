@@ -14,21 +14,22 @@ export async function loginUser({dependencies, payload}: loginUserData){
     const {email, password} = payload
 
     let existUserInDB = await dependencies.authenticationService.findUserByEmail(email)
-    if(!existUserInDB){
+    if(!existUserInDB.success || existUserInDB.data == undefined){
         return 'Invalid credentials'
     }
 
-    let validPassword = await dependencies.authenticationService.validPassword(password, existUserInDB)
 
-    if(validPassword == false){
+    let validPassword = await dependencies.authenticationService.validPassword(password, existUserInDB.data)
+
+    if(!validPassword.success){
         return 'Invalid credentials'
     }
 
-    const token = await dependencies.authenticationService.generateTokenUser(existUserInDB)
+    const token = await dependencies.authenticationService.generateTokenUser(existUserInDB.data)
 
-    if(token == undefined){
+    if(!token.success || token.data == undefined){
         return 'Internal error in login process'
     }
 
-    return token
+    return token.data
 }
