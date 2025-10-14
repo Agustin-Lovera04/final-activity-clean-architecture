@@ -2,8 +2,7 @@ import { IUser } from "../../entities";
 import { authenticationService } from "../authentication/authentication-service";
 import { ServiceResult } from "../../utils/types/serviceResult";
 import jwt from 'jsonwebtoken';
-
-const SECRET_KEY_JWT = process.env.SECRET_KEY_JWT;
+import { config } from "../../config/config";
 
 export class AuthenticationServiceMock implements authenticationService {
     private users: IUser[] = [
@@ -59,7 +58,7 @@ export class AuthenticationServiceMock implements authenticationService {
     async generateTokenUser(dataUser: Omit<IUser, "password">): Promise<ServiceResult<string>> {
         const token = jwt.sign(
             dataUser,
-            SECRET_KEY_JWT,
+            config.SECRET_KEY_JWT,
             { expiresIn: '1h' }
         );
         return { success: true, data: token };
