@@ -28,7 +28,7 @@ describe('Login User', () => {
             }
         })
 
-        expect(result).toStrictEqual('Invalid credentials')
+        expect(result).toStrictEqual('Invalid email')
     })
 
         test("Receive data from user with invalid password and compare it with existing users and should return a JWT with the user's information.", async()=>{
@@ -37,6 +37,19 @@ describe('Login User', () => {
             payload: {
                 email: 'agustin@gmail.com',
                 password: 'fail'
+            }
+        })
+
+        expect(result).toStrictEqual('Invalid credentials')
+    })
+
+    
+        test("Receive data from user with invalid password and compare it with existing users and should return a JWT with the user's information.", async()=>{
+        const result = await loginUser({
+            dependencies: {authenticationService},
+            payload: {
+                email: 'agustin@gmail.com',
+                password: ''
             }
         })
 

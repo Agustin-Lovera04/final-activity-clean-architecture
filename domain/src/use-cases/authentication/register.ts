@@ -11,9 +11,8 @@ export async function registerUser({dependencies, payload}: registerUserData){
 
     const {email} = payload 
 
-    let exReg = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-    let valid = exReg.test(email);
-    if (!valid) return 'Invalid email';
+    let valid = await dependencies.authenticationService.validEmail(email)
+    if (!valid.success) return valid.error;
 
 
     let existUserInDB = await dependencies.authenticationService.findUserByEmail(email)

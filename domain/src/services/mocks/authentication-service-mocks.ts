@@ -48,6 +48,15 @@ export class AuthenticationServiceMock implements authenticationService {
         }
     }
 
+
+    async validEmail(email: string): Promise<ServiceResult<boolean>>{
+        let exReg = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+        let valid = exReg.test(email);
+        if (!valid) return {success: false, error: 'Invalid email' };
+        return { success: true, data: true };
+    }
+
+
     async validPassword(password: string, existUserInDB: IUser): Promise<ServiceResult<IUser>> {
         if (password !== existUserInDB.password) {
             return { success: false, error: "Invalid password" };

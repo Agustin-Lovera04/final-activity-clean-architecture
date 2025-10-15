@@ -13,11 +13,13 @@ interface loginUserData{
 export async function loginUser({dependencies, payload}: loginUserData){
     const {email, password} = payload
 
+    let valid = await dependencies.authenticationService.validEmail(email)
+    if (!valid.success) return valid.error;
+    
     let existUserInDB = await dependencies.authenticationService.findUserByEmail(email)
     if(!existUserInDB.success || existUserInDB.data == undefined){
         return 'Invalid credentials'
     }
-
 
     let validPassword = await dependencies.authenticationService.validPassword(password, existUserInDB.data)
 
