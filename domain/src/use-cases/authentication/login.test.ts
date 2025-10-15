@@ -18,19 +18,28 @@ describe('Login User', () => {
 
         expect(result).toBeTypeOf('string')
     })
-/* 
+
     test("Receive data from user with invalid email and compare it with existing users and should return a JWT with the user's information.", async()=>{
         const result = await loginUser({
             dependencies: {authenticationService},
             payload: {
-                email: 'agustin@gmail.com',
+                email: 'Agustin"@',
                 password: 'Agustin'
             }
         })
 
-        expect(result).toStrictEqual({
-            email: 'agustin@gmail.com',
-            password: 'Agustin'
+        expect(result).toStrictEqual('Invalid credentials')
+    })
+
+        test("Receive data from user with invalid password and compare it with existing users and should return a JWT with the user's information.", async()=>{
+        const result = await loginUser({
+            dependencies: {authenticationService},
+            payload: {
+                email: 'agustin@gmail.com',
+                password: 'fail'
+            }
         })
-    }) */
+
+        expect(result).toStrictEqual('Invalid credentials')
+    })
 })

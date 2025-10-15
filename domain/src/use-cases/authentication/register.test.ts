@@ -1,6 +1,7 @@
 import { AuthenticationServiceMock } from './../../services/mocks/authentication-service-mocks';
 import { describe, test, expect } from 'vitest'
 import { registerUser } from './register'
+import { UserRole } from '../../entities';
 
 describe('Register', () => {
 
@@ -14,7 +15,7 @@ describe('Register', () => {
                 email: 'test@gmail.com',
                 password: 'test',
                 name: 'Agustin',
-                role: 'CLIENT'
+                role: UserRole.CLIENT
             }
         })
         expect(result).toStrictEqual('User successfully registered')
@@ -28,7 +29,7 @@ describe('Register', () => {
                 email: 'test@gmail.com',
                 password: 'test',
                 name: 'Agustin',
-                role: 'CLIENT'
+                role: UserRole.CLIENT
             }
         })
 
@@ -43,7 +44,7 @@ describe('Register', () => {
                 email: 'test',
                 password: 'test',
                 name: 'Agustin',
-                role: 'CLIENT'
+                role: UserRole.CLIENT
             }
         })
 
