@@ -7,9 +7,9 @@ describe('Login User', () => {
 
     const authenticationService = new AuthenticationServiceMock()
 
-    test("Receive user data and compare it with existing users and should return a JWT set in cookies with the user information.", async()=>{
+    test("Receive user data and compare it with existing users and should return a JWT set in cookies with the user information.", async () => {
         const result = await loginUser({
-            dependencies: {authenticationService},
+            dependencies: { authenticationService },
             payload: {
                 email: 'agustin@gmail.com',
                 password: 'Agustin'
@@ -19,9 +19,9 @@ describe('Login User', () => {
         expect(result).toBeTypeOf('string')
     })
 
-    test("Receive data from user with invalid email and compare it with existing users and should return a JWT with the user's information.", async()=>{
+    test("Receive data from user with invalid email and compare it with existing users and should return a JWT with the user's information.", async () => {
         const result = await loginUser({
-            dependencies: {authenticationService},
+            dependencies: { authenticationService },
             payload: {
                 email: 'Agustin"@',
                 password: 'Agustin'
@@ -31,9 +31,9 @@ describe('Login User', () => {
         expect(result).toStrictEqual('Invalid email')
     })
 
-        test("Receive data from user with invalid password and compare it with existing users and should return a JWT with the user's information.", async()=>{
+    test("Receive data from user with invalid password and compare it with existing users and should return a JWT with the user's information.", async () => {
         const result = await loginUser({
-            dependencies: {authenticationService},
+            dependencies: { authenticationService },
             payload: {
                 email: 'agustin@gmail.com',
                 password: 'fail'
@@ -43,10 +43,10 @@ describe('Login User', () => {
         expect(result).toStrictEqual('Invalid credentials')
     })
 
-    
-        test("Receive data from user with invalid password and compare it with existing users and should return a JWT with the user's information.", async()=>{
+
+    test("Receive data from user with invalid password and compare it with existing users and should return a JWT with the user's information.", async () => {
         const result = await loginUser({
-            dependencies: {authenticationService},
+            dependencies: { authenticationService },
             payload: {
                 email: 'agustin@gmail.com',
                 password: ''

@@ -7,10 +7,10 @@ describe('Register', () => {
 
     const authenticationService = new AuthenticationServiceMock()
 
-    test('Receives user data and should create and return the same', async()=>{
+    test('Receives user data and should create and return the same', async () => {
         const result = await registerUser({
             dependencies: { authenticationService },
-            payload:  {
+            payload: {
                 id: 'idUnique',
                 email: 'test@gmail.com',
                 password: 'test',
@@ -18,13 +18,15 @@ describe('Register', () => {
                 role: UserRole.CLIENT
             }
         })
-        expect(result).toStrictEqual('User successfully registered')
+        
+        expect(result).toBeTypeOf('object')
+        expect(result).toHaveProperty('email', 'test@gmail.com');
     })
 
-    test('Receives user data with email already existing in DB and should return an error', async()=> {
+    test('Receives user data with email already existing in DB and should return an error', async () => {
         const result = await registerUser({
             dependencies: { authenticationService },
-            payload:  {
+            payload: {
                 id: 'idUnique',
                 email: 'test@gmail.com',
                 password: 'test',
@@ -36,10 +38,10 @@ describe('Register', () => {
         expect(result).toStrictEqual('User already exists')
     })
 
-        test('Receives user data with invalid email and should return an error', async()=> {
+    test('Receives user data with invalid email and should return an error', async () => {
         const result = await registerUser({
             dependencies: { authenticationService },
-            payload:  {
+            payload: {
                 id: 'idUnique',
                 email: 'test',
                 password: 'test',
@@ -49,5 +51,20 @@ describe('Register', () => {
         })
 
         expect(result).toStrictEqual('Invalid email')
+    })
+        
+    test('Receives user data with role = ADMIN and should create and return the same', async () => {
+        const result = await registerUser({
+            dependencies: { authenticationService },
+            payload: {
+                id: 'idADMIN',
+                email: 'ADMIN@gmail.com',
+                password: 'ADMIN',
+                name: 'ADMIN',
+                role: UserRole.ADMIN
+            }
+        })
+
+        expect(result).toHaveProperty('role', 'ADMIN');
     })
 })
