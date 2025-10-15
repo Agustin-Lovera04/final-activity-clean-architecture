@@ -9,11 +9,12 @@ interface registerUserData {
 
 export async function registerUser({ dependencies, payload }: registerUserData) {
 
-    const { email } = payload
+    const { email, password } = payload
 
-    let valid = await dependencies.authenticationService.validEmail(email)
-    if (!valid.success) return valid.error;
+    let validEmail = await dependencies.authenticationService.validEmail(email)
+    if (!validEmail.success) return validEmail.error;
 
+    if(password.length === 0) return 'Invalid password'
 
     let existUserInDB = await dependencies.authenticationService.findUserByEmail(email)
     if (existUserInDB.success && existUserInDB.data) {
